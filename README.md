@@ -18,4 +18,4 @@ Este projeto é um relógio digital simples que exibe a hora atual em um formato
 
 O relógio digital utiliza JavaScript para obter a hora atual do sistema e atualizá-la a cada segundo. Os estilos são aplicados através do CSS para garantir que o relógio seja visualmente atraente e fácil de ler.
 
-<a href='https://github.com/GoGoKIra/Digital-Clock'>
+<a href='https://github.com/GoGoKIra/Digital-Clock'></a>
