@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #100c25;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 48px;
+}
+
+#clock {
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#time {
+    font-weight: bold;
+}
+
+#date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+    margin-top: 24px; /* Ajuste a margem conforme necessário */
+    color: white; /* Ajuste a cor conforme necessário */
+}
