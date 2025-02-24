@@ -4,7 +4,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #191047;
-    background-image: url('caminho/para/sua/imagem.jpg'); /* Substitua pelo caminho correto */
+    background-image: url(''); /* Substitua pelo caminho correto */
     background-size: cover; /* Ajusta a imagem para cobrir toda a tela */
     background-position: center; /* Centraliza a imagem */
     color: white;
@@ -16,7 +16,7 @@ body {
     border: 2px solid white;
     padding: 20px;
     border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.1); /* Ajuste a opacidade conforme necessário */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
