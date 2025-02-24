@@ -17,3 +17,11 @@ setInterval(updateClock, 1000);
 
 // Chama a função para definir o relógio imediatamente
 updateClock();
+
+// Função para abrir o calendário
+function openCalendar() {
+    window.open('https://calendar.google.com', '_blank');
+}
+
+// Adiciona o evento de clique ao botão
+document.getElementById('calendarButton').addEventListener('click', openCalendar);

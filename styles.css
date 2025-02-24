@@ -3,8 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #191047;
-    background-image: url(''); /* Substitua pelo caminho correto */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('IMG_20250211_181913.jpg'); /* Adiciona uma sobreposição escura */
     background-size: cover; /* Ajusta a imagem para cobrir toda a tela */
     background-position: center; /* Centraliza a imagem */
     color: white;
@@ -31,4 +30,19 @@ body {
     font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
     margin-top: 24px; /* Ajuste a margem conforme necessário */
     color: white; /* Ajuste a cor conforme necessário */
+}
+
+#calendarButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #100c25;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#calendarButton:hover {
+    background-color: #ddd;
 }
