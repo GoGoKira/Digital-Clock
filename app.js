@@ -14,9 +14,51 @@ function updateClock() {
 
 // Atualiza o relógio a cada segundo
 setInterval(updateClock, 1000);
-
-// Chama a função para definir o relógio imediatamente
 updateClock();
+
+// Configurações
+const settingsButton = document.getElementById('settingsButton');
+const settingsMenu = document.getElementById('settingsMenu');
+const applySettingsButton = document.getElementById('applySettings');
+const closeSettingsButton = document.getElementById('closeSettings');
+
+// Abrir o menu de configurações
+settingsButton.addEventListener('click', () => {
+    settingsMenu.style.display = 'block';
+});
+
+// Fechar o menu de configurações
+closeSettingsButton.addEventListener('click', () => {
+    settingsMenu.style.display = 'none';
+});
+
+// Aplicar configurações
+applySettingsButton.addEventListener('click', () => {
+    // Alterar a cor do relógio
+    const color = document.getElementById('colorPicker').value;
+    document.getElementById('time').style.color = color;
+    document.getElementById('date').style.color = color;
+
+    // Alterar a fonte
+    const font = document.getElementById('fontPicker').value;
+    document.getElementById('time').style.fontFamily = font;
+    document.getElementById('date').style.fontFamily = font;
+
+    // Alterar o estilo dos botões
+    const buttonStyle = document.getElementById('buttonStyle').value;
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.remove('rounded', 'flat');
+        if (buttonStyle === 'rounded') {
+            button.classList.add('rounded');
+        } else if (buttonStyle === 'flat') {
+            button.classList.add('flat');
+        }
+    });
+
+    // Fechar o menu de configurações
+    settingsMenu.style.display = 'none';
+});
 
 // Função para abrir a página da agenda
 function openCalendar() {
