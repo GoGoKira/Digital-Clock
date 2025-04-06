@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital com Calendário</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="clock">
+        <h1 id="time">00:00:00</h1>
+        <p id="date"></p>
+        <button id="calendarButton">Acessar Calendário</button>
+        <button id="settingsButton">Configurações</button>
+    </div>
+
+    <!-- Contêiner do calendário -->
+    <div id="calendarContainer" class="hidden">
+        <h2 id="monthYear"></h2>
+        <div class="calendar-grid">
+            <div class="day-name">Dom</div>
+            <div class="day-name">Seg</div>
+            <div class="day-name">Ter</div>
+            <div class="day-name">Qua</div>
+            <div class="day-name">Qui</div>
+            <div class="day-name">Sex</div>
+            <div class="day-name">Sáb</div>
+            <div id="days"></div>
+        </div>
+        <button id="closeCalendar">Fechar Calendário</button>
+    </div>
+
+    <!-- Modal para a agenda -->
+    <div id="agendaModal" class="hidden">
+        <h2>Agenda do Dia</h2>
+        <div id="agendaContent"></div>
+        <textarea id="agendaInput" placeholder="Adicione um evento..."></textarea>
+        <button id="saveAgenda">Salvar</button>
+        <button id="closeAgenda">Fechar</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -2,34 +2,52 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+    margin: 0;
     background: linear-gradient(rgba(35, 18, 77, 0.5), rgba(0, 0, 0, 0.5)), url('IMG_20250211_181913.jpg');
     background-size: cover;
     background-position: center;
     color: white;
     font-family: 'Arial', sans-serif;
-    margin: 0;
 }
 
 #clock {
-    border: 2px solid white;
+    /* Remova ou comente a borda */
+    /* border: 2px solid white; */
     padding: 20px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
+.clock {
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Ajusta a altura do relógio */
+    text-align: center;
+    padding: 20px;
+    /* Remova ou comente a borda */
+    /* border: 2px solid white; */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
 #time {
+    font-size: 72px; /* Aumenta o tamanho do horário */
     font-weight: bold;
+    color: white;
 }
 
 #date {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
-    margin-top: 24px; /* Ajuste a margem conforme necessário */
-    color: white; /* Ajuste a cor conforme necessário */
+    font-size: 32px; /* Aumenta o tamanho da data */
+    margin-top: 10px;
+    color: white;
 }
 
 #calendarButton {
@@ -117,11 +135,13 @@ body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
+    margin-top: 10px;
 }
 
 .day-name {
     font-weight: bold;
     text-align: center;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 #days {
@@ -143,14 +163,14 @@ body {
 }
 
 button {
-    margin-top: 20px;
+    margin: 5px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
+    cursor: pointer;
     color: #100c25;
     background-color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 button:hover {
@@ -205,4 +225,91 @@ button:hover {
 
 .day:hover {
     background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Estilo para o menu de configurações */
+#settingsMenu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    /* Remova ou comente a borda */
+    /* border-radius: 10px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+
+#settingsMenu h2 {
+    margin-top: 0;
+}
+
+#settingsMenu label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#settingsMenu input,
+#settingsMenu select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#settingsMenu button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Estilos para os botões */
+button.rounded {
+    border-radius: 20px;
+}
+
+button.flat {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+#calendarContainer {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+#agendaModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+#agendaInput {
+    width: 100%;
+    height: 80px;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
 }
