@@ -4,7 +4,7 @@ body {
     align-items: center;
     height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
     margin: 0;
-    background: linear-gradient(rgba(35, 18, 77, 0.5), rgba(0, 0, 0, 0.5)), url('IMG_20250211_181913.jpg');
+    background: linear-gradient(rgba(35, 18, 77, 0.5), rgba(0, 0, 0, 0.5)), url('background.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -21,15 +21,8 @@ body {
 }
 
 .clock {
-    display: flex;
-    flex-direction: column; /* Alinha os elementos verticalmente */
-    justify-content: center;
-    align-items: center;
-    height: auto; /* Ajusta a altura do relógio */
     text-align: center;
     padding: 20px;
-    /* Remova ou comente a borda */
-    /* border: 2px solid white; */
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -38,16 +31,11 @@ body {
 #time {
     font-size: 72px; /* Aumenta o tamanho do horário */
     font-weight: bold;
-    color: white;
 }
 
 #date {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px; /* Aumenta o tamanho da data */
+    font-size: 24px; /* Aumenta o tamanho da data */
     margin-top: 10px;
-    color: white;
 }
 
 #calendarButton {
@@ -236,11 +224,11 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 20px;
-    /* Remova ou comente a borda */
-    /* border-radius: 10px; */
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: none;
     z-index: 1000;
+    width: 300px;
+    text-align: center;
 }
 
 #settingsMenu h2 {

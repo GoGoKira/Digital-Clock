@@ -13,6 +13,7 @@ function updateClock() {
     document.getElementById('date').textContent = dateString;
 }
 
+// Atualiza o relógio a cada segundo
 setInterval(updateClock, 1000);
 updateClock();
 

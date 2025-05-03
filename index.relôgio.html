@@ -10,8 +10,35 @@
     <div class="clock">
         <h1 id="time">00:00:00</h1>
         <p id="date"></p>
+        <button id="settingsButton">Configurações</button> <!-- Botão para abrir configurações -->
     </div>
-    <button id="calendarButton" onclick="window.open('calendario.html', '_blank')">Acessar Calendário</button>
+
+    <!-- Contêiner para as configurações -->
+    <div id="settingsMenu" class="hidden">
+        <h2>Configurações</h2>
+        <label for="colorPicker">Cor do Relógio:</label>
+        <input type="color" id="colorPicker" value="#ffffff">
+
+        <label for="fontPicker">Fonte:</label>
+        <select id="fontPicker">
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+        </select>
+
+        <label for="buttonStyle">Estilo dos Botões:</label>
+        <select id="buttonStyle">
+            <option value="default">Padrão</option>
+            <option value="rounded">Arredondado</option>
+            <option value="flat">Flat</option>
+        </select>
+
+        <button id="applySettings">Aplicar</button>
+        <button id="closeSettings">Fechar</button>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
