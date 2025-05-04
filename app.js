@@ -11,6 +11,24 @@ function updateClock() {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateString = now.toLocaleDateString('pt-BR', options);
     document.getElementById('date').textContent = dateString;
+
+    document.getElementById('date').textContent += ` - Fase da Lua: ${getMoonPhase()}`;
+}
+
+// Função para obter a fase da lua
+function getMoonPhase() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const lp = 2551443; // Duração média de um ciclo lunar em segundos
+    const newMoon = new Date(1970, 0, 7, 20, 35, 0); // Data de uma lua nova conhecida
+    const phase = ((now.getTime() - newMoon.getTime()) / 1000) % lp;
+    const phaseIndex = Math.floor((phase / lp) * 8);
+
+    const phases = ['Nova', 'Crescente Côncava', 'Quarto Crescente', 'Crescente Convexa', 'Cheia', 'Minguante Convexa', 'Quarto Minguante', 'Minguante Côncava'];
+    return phases[phaseIndex];
 }
 
 // Atualiza o relógio a cada segundo
@@ -76,60 +94,95 @@ const closeAgenda = document.getElementById('closeAgenda');
 let currentDate = new Date();
 let agenda = {};
 
-// Função para renderizar o calendário
-function renderCalendar() {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
+// Timer
+let timerInterval;
 
-    const monthNames = [
-        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    monthYear.textContent = `${monthNames[month]} ${year}`;
+document.getElementById('startTimer').addEventListener('click', () => {
+    const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+    const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+    let totalSeconds = minutes * 60 + seconds;
 
-    daysContainer.innerHTML = '';
+    timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            alert('O tempo acabou!');
+        } else {
+            totalSeconds--;
+            const displayMinutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const displaySeconds = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById('timerDisplay').textContent = `${displayMinutes}:${displaySeconds}`;
+        }
+    }, 1000);
+});
 
-    const firstDay = new Date(year, month, 1).getDay();
-    const lastDate = new Date(year, month + 1, 0).getDate();
+document.getElementById('stopTimer').addEventListener('click', () => {
+    clearInterval(timerInterval);
+});
 
-    for (let i = 0; i < firstDay; i++) {
-        const emptyDiv = document.createElement('div');
-        daysContainer.appendChild(emptyDiv);
+// Stopwatch
+let stopwatchInterval;
+let stopwatchSeconds = 0;
+
+document.getElementById('startStopwatch').addEventListener('click', () => {
+    stopwatchInterval = setInterval(() => {
+        stopwatchSeconds++;
+        const hours = String(Math.floor(stopwatchSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((stopwatchSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(stopwatchSeconds % 60).padStart(2, '0');
+        document.getElementById('stopwatchDisplay').textContent = `${hours}:${minutes}:${seconds}`;
+    }, 1000);
+});
+
+document.getElementById('pauseStopwatch').addEventListener('click', () => {
+    clearInterval(stopwatchInterval);
+});
+
+document.getElementById('resetStopwatch').addEventListener('click', () => {
+    clearInterval(stopwatchInterval);
+    stopwatchSeconds = 0;
+    document.getElementById('stopwatchDisplay').textContent = '00:00:00';
+});
+
+// Alarm
+const alarmList = [];
+document.getElementById('setAlarm').addEventListener('click', () => {
+    const alarmTime = document.getElementById('alarmTime').value;
+    if (alarmTime) {
+        alarmList.push(alarmTime);
+        const alarmItem = document.createElement('li');
+        alarmItem.textContent = `Alarme definido para ${alarmTime}`;
+        document.getElementById('alarmList').appendChild(alarmItem);
     }
+});
 
-    for (let day = 1; day <= lastDate; day++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.textContent = day;
-        dayDiv.classList.add('day');
-        dayDiv.addEventListener('click', () => openAgenda(day));
-        daysContainer.appendChild(dayDiv);
+setInterval(() => {
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    if (alarmList.includes(currentTime)) {
+        alert('Alarme tocando!');
+        const index = alarmList.indexOf(currentTime);
+        alarmList.splice(index, 1); // Remove o alarme acionado
     }
+}, 1000);
+
+// Tema
+document.getElementById('lightTheme').addEventListener('click', () => {
+    document.body.style.backgroundColor = '#ffffff';
+    document.body.style.color = '#000000';
+});
+
+document.getElementById('darkTheme').addEventListener('click', () => {
+    document.body.style.backgroundColor = '#000000';
+    document.body.style.color = '#ffffff';
+});
+
+// Função para buscar o clima
+async function fetchWeather() {
+    const apiKey = 'SUA_API_KEY';
+    const city = 'São Paulo';
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`);
+    const data = await response.json();
+    document.getElementById('date').textContent += ` - Clima: ${data.weather[0].description}, ${data.main.temp}°C`;
 }
 
-// Abrir o calendário
-calendarButton.addEventListener('click', () => {
-    calendarContainer.classList.remove('hidden');
-    renderCalendar();
-});
-
-// Fechar o calendário
-closeCalendar.addEventListener('click', () => {
-    calendarContainer.classList.add('hidden');
-});
-
-// Abrir a agenda
-function openAgenda(day) {
-    const key = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
-    agendaContent.textContent = agenda[key] || 'Sem eventos';
-    agendaInput.value = '';
-    agendaModal.classList.remove('hidden');
-    saveAgenda.onclick = () => {
-        agenda[key] = agendaInput.value;
-        agendaModal.classList.add('hidden');
-    };
-}
-
-// Fechar a agenda
-closeAgenda.addEventListener('click', () => {
-    agendaModal.classList.add('hidden');
-});
+fetchWeather();
