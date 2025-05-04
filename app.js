@@ -35,48 +35,95 @@ function getMoonPhase() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Abrir e fechar menus
+function toggleMenu(menuId, show) {
+    const menu = document.getElementById(menuId);
+    menu.style.display = show ? 'block' : 'none';
+}
+
+// Temporizador
+document.getElementById('timerButton').addEventListener('click', () => toggleMenu('timerMenu', true));
+document.getElementById('closeTimer').addEventListener('click', () => toggleMenu('timerMenu', false));
+
+// Cronômetro
+document.getElementById('stopwatchButton').addEventListener('click', () => toggleMenu('stopwatchMenu', true));
+document.getElementById('closeStopwatch').addEventListener('click', () => toggleMenu('stopwatchMenu', false));
+
+// Alarmes
+const alarmList = [];
+
+// Abrir e fechar o menu de alarmes
+document.getElementById('alarmButton').addEventListener('click', () => toggleMenu('alarmMenu', true));
+document.getElementById('closeAlarm').addEventListener('click', () => toggleMenu('alarmMenu', false));
+
+// Definir um novo alarme
+document.getElementById('setAlarm').addEventListener('click', () => {
+    const alarmTime = document.getElementById('alarmTime').value;
+    if (alarmTime) {
+        alarmList.push(alarmTime);
+        renderAlarmList();
+    }
+});
+
+// Renderizar a lista de alarmes
+function renderAlarmList() {
+    const alarmListElement = document.getElementById('alarmList');
+    alarmListElement.innerHTML = ''; // Limpa a lista antes de renderizar
+
+    alarmList.forEach((alarm, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Alarme: ${alarm}`;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Apagar';
+        deleteButton.addEventListener('click', () => {
+            alarmList.splice(index, 1); // Remove o alarme da lista
+            renderAlarmList(); // Atualiza a lista
+        });
+
+        listItem.appendChild(deleteButton);
+        alarmListElement.appendChild(listItem);
+    });
+}
+
+// Verificar alarmes a cada segundo
+setInterval(() => {
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    if (alarmList.includes(currentTime)) {
+        alert('Alarme tocando!');
+        const index = alarmList.indexOf(currentTime);
+        alarmList.splice(index, 1); // Remove o alarme acionado
+        renderAlarmList(); // Atualiza a lista
+    }
+}, 1000);
+
 // Configurações
-const settingsButton = document.getElementById('settingsButton');
-const settingsMenu = document.getElementById('settingsMenu');
-const applySettingsButton = document.getElementById('applySettings');
-const closeSettingsButton = document.getElementById('closeSettings');
-
-// Abrir o menu de configurações
-settingsButton.addEventListener('click', () => {
-    settingsMenu.style.display = 'block';
-});
-
-// Fechar o menu de configurações
-closeSettingsButton.addEventListener('click', () => {
-    settingsMenu.style.display = 'none';
-});
+document.getElementById('settingsButton').addEventListener('click', () => toggleMenu('settingsMenu', true));
+document.getElementById('closeSettings').addEventListener('click', () => toggleMenu('settingsMenu', false));
 
 // Aplicar configurações
-applySettingsButton.addEventListener('click', () => {
-    // Alterar a cor do relógio
+document.getElementById('applySettings').addEventListener('click', () => {
     const color = document.getElementById('colorPicker').value;
+    const font = document.getElementById('fontPicker').value;
+
     document.getElementById('time').style.color = color;
     document.getElementById('date').style.color = color;
-
-    // Alterar a fonte
-    const font = document.getElementById('fontPicker').value;
     document.getElementById('time').style.fontFamily = font;
     document.getElementById('date').style.fontFamily = font;
 
-    // Alterar o estilo dos botões
-    const buttonStyle = document.getElementById('buttonStyle').value;
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.classList.remove('rounded', 'flat');
-        if (buttonStyle === 'rounded') {
-            button.classList.add('rounded');
-        } else if (buttonStyle === 'flat') {
-            button.classList.add('flat');
-        }
-    });
+    toggleMenu('settingsMenu', false);
+});
 
-    // Fechar o menu de configurações
-    settingsMenu.style.display = 'none';
+// Temas
+document.getElementById('lightTheme').addEventListener('click', () => {
+    document.body.style.backgroundColor = '#ffffff';
+    document.body.style.color = '#000000';
+});
+
+document.getElementById('darkTheme').addEventListener('click', () => {
+    document.body.style.backgroundColor = '#000000';
+    document.body.style.color = '#ffffff';
 });
 
 // Variáveis globais
@@ -141,39 +188,6 @@ document.getElementById('resetStopwatch').addEventListener('click', () => {
     clearInterval(stopwatchInterval);
     stopwatchSeconds = 0;
     document.getElementById('stopwatchDisplay').textContent = '00:00:00';
-});
-
-// Alarm
-const alarmList = [];
-document.getElementById('setAlarm').addEventListener('click', () => {
-    const alarmTime = document.getElementById('alarmTime').value;
-    if (alarmTime) {
-        alarmList.push(alarmTime);
-        const alarmItem = document.createElement('li');
-        alarmItem.textContent = `Alarme definido para ${alarmTime}`;
-        document.getElementById('alarmList').appendChild(alarmItem);
-    }
-});
-
-setInterval(() => {
-    const now = new Date();
-    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    if (alarmList.includes(currentTime)) {
-        alert('Alarme tocando!');
-        const index = alarmList.indexOf(currentTime);
-        alarmList.splice(index, 1); // Remove o alarme acionado
-    }
-}, 1000);
-
-// Tema
-document.getElementById('lightTheme').addEventListener('click', () => {
-    document.body.style.backgroundColor = '#ffffff';
-    document.body.style.color = '#000000';
-});
-
-document.getElementById('darkTheme').addEventListener('click', () => {
-    document.body.style.backgroundColor = '#000000';
-    document.body.style.color = '#ffffff';
 });
 
 // Função para buscar o clima

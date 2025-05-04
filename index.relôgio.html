@@ -10,10 +10,43 @@
     <div class="clock">
         <h1 id="time">00:00:00</h1>
         <p id="date"></p>
-        <button id="settingsButton">Configurações</button> <!-- Botão para abrir configurações -->
+        <button id="timerButton">Temporizador</button>
+        <button id="stopwatchButton">Cronômetro</button>
+        <button id="alarmButton">Alarmes</button>
+        <button id="settingsButton">Configurações</button>
     </div>
 
-    <!-- Contêiner para as configurações -->
+    <!-- Contêiner para o Temporizador -->
+    <div id="timerMenu" class="hidden">
+        <h2>Temporizador</h2>
+        <input type="number" id="timerMinutes" placeholder="Minutos">
+        <input type="number" id="timerSeconds" placeholder="Segundos">
+        <button id="startTimer">Iniciar</button>
+        <button id="stopTimer">Parar</button>
+        <h3 id="timerDisplay">00:00</h3>
+        <button id="closeTimer">Fechar</button>
+    </div>
+
+    <!-- Contêiner para o Cronômetro -->
+    <div id="stopwatchMenu" class="hidden">
+        <h2>Cronômetro</h2>
+        <h3 id="stopwatchDisplay">00:00:00</h3>
+        <button id="startStopwatch">Iniciar</button>
+        <button id="pauseStopwatch">Pausar</button>
+        <button id="resetStopwatch">Zerar</button>
+        <button id="closeStopwatch">Fechar</button>
+    </div>
+
+    <!-- Contêiner para os Alarmes -->
+    <div id="alarmMenu" class="hidden">
+        <h2>Alarmes</h2>
+        <input type="time" id="alarmTime">
+        <button id="setAlarm">Definir Alarme</button>
+        <ul id="alarmList"></ul>
+        <button id="closeAlarm">Fechar</button>
+    </div>
+
+    <!-- Contêiner para as Configurações -->
     <div id="settingsMenu" class="hidden">
         <h2>Configurações</h2>
         <label for="colorPicker">Cor do Relógio:</label>
@@ -28,45 +61,12 @@
             <option value="Verdana">Verdana</option>
         </select>
 
-        <label for="buttonStyle">Estilo dos Botões:</label>
-        <select id="buttonStyle">
-            <option value="default">Padrão</option>
-            <option value="rounded">Arredondado</option>
-            <option value="flat">Flat</option>
-        </select>
+        <label>Tema:</label>
+        <button id="lightTheme">Tema Claro</button>
+        <button id="darkTheme">Tema Escuro</button>
 
         <button id="applySettings">Aplicar</button>
         <button id="closeSettings">Fechar</button>
-    </div>
-
-    <div id="timerContainer">
-        <h2>Temporizador</h2>
-        <input type="number" id="timerMinutes" placeholder="Minutos">
-        <input type="number" id="timerSeconds" placeholder="Segundos">
-        <button id="startTimer">Iniciar</button>
-        <button id="stopTimer">Parar</button>
-        <h3 id="timerDisplay">00:00</h3>
-    </div>
-
-    <div id="stopwatchContainer">
-        <h2>Cronômetro</h2>
-        <h3 id="stopwatchDisplay">00:00:00</h3>
-        <button id="startStopwatch">Iniciar</button>
-        <button id="pauseStopwatch">Pausar</button>
-        <button id="resetStopwatch">Zerar</button>
-    </div>
-
-    <div id="alarmContainer">
-        <h2>Alarmes</h2>
-        <input type="time" id="alarmTime">
-        <button id="setAlarm">Definir Alarme</button>
-        <ul id="alarmList"></ul>
-    </div>
-
-    <div id="themeContainer">
-        <h2>Temas</h2>
-        <button id="lightTheme">Tema Claro</button>
-        <button id="darkTheme">Tema Escuro</button>
     </div>
 
     <script src="app.js"></script>

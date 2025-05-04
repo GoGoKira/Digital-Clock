@@ -301,3 +301,64 @@ button.flat {
     border-radius: 5px;
     border: none;
 }
+
+#settingsMenu,
+#timerMenu,
+#stopwatchMenu,
+#alarmMenu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+#settingsMenu h2,
+#timerMenu h2,
+#stopwatchMenu h2,
+#alarmMenu h2 {
+    margin-top: 0;
+}
+
+#settingsMenu label,
+#timerMenu input,
+#stopwatchMenu button,
+#alarmMenu input {
+    display: block;
+    margin: 10px 0;
+}
+
+#alarmList {
+    list-style: none;
+    padding: 0;
+}
+
+#alarmList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+#alarmList button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#alarmList button:hover {
+    background-color: darkred;
+}
