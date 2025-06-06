@@ -2,13 +2,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+    height: 100vh;
     margin: 0;
     background: linear-gradient(rgba(35, 18, 77, 0.5), rgba(0, 0, 0, 0.5)), url('background.jpg');
     background-size: cover;
     background-position: center;
     color: white;
     font-family: 'Arial', sans-serif;
+    transition: background 0.5s ease; /* Suaviza a transição ao mudar o fundo */
 }
 
 #clock {

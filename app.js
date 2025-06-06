@@ -115,15 +115,31 @@ document.getElementById('applySettings').addEventListener('click', () => {
     toggleMenu('settingsMenu', false);
 });
 
+// Alterar imagem de fundo
+document.getElementById('backgroundPicker').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.body.style.backgroundImage = `url('${e.target.result}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 // Temas
 document.getElementById('lightTheme').addEventListener('click', () => {
     document.body.style.backgroundColor = '#ffffff';
     document.body.style.color = '#000000';
+    document.body.style.backgroundImage = ''; // Remove a imagem de fundo
 });
 
 document.getElementById('darkTheme').addEventListener('click', () => {
     document.body.style.backgroundColor = '#000000';
     document.body.style.color = '#ffffff';
+    document.body.style.backgroundImage = ''; // Remove a imagem de fundo
 });
 
 // Variáveis globais
