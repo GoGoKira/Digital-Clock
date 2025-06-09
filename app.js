@@ -50,7 +50,38 @@ document.getElementById('stopwatchButton').addEventListener('click', () => toggl
 document.getElementById('closeStopwatch').addEventListener('click', () => toggleMenu('stopwatchMenu', false));
 
 // Alarmes
+class Alarme {
+    constructor(hora, minuto) {
+        this.hora = hora;
+        this.minuto = minuto;
+    }
+    verificarAlarme(horaAtual, minutoAtual) {
+        return this.hora === horaAtual && this.minuto === minutoAtual;
+    }
+}
+
+// Lista de alarmes como objetos da classe Alarme
 const alarmList = [];
+
+function adicionarAlarme(hora, minuto) {
+    alarmList.push(new Alarme(hora, minuto));
+    renderAlarmList();
+}
+
+function verificarAlarmes() {
+    const now = new Date();
+    const horaAtual = now.getHours();
+    const minutoAtual = now.getMinutes();
+    alarmList.forEach((alarme, index) => {
+        if (alarme.verificarAlarme(horaAtual, minutoAtual)) {
+            alert('Alarme tocando!');
+            alarmList.splice(index, 1); // Remove o alarme após tocar
+            renderAlarmList();
+        }
+    });
+}
+
+setInterval(verificarAlarmes, 60000); // Verifica a cada minuto
 
 // Abrir e fechar o menu de alarmes
 document.getElementById('alarmButton').addEventListener('click', () => toggleMenu('alarmMenu', true));
@@ -60,8 +91,8 @@ document.getElementById('closeAlarm').addEventListener('click', () => toggleMenu
 document.getElementById('setAlarm').addEventListener('click', () => {
     const alarmTime = document.getElementById('alarmTime').value;
     if (alarmTime) {
-        alarmList.push(alarmTime);
-        renderAlarmList();
+        const [hora, minuto] = alarmTime.split(':').map(Number);
+        adicionarAlarme(hora, minuto);
     }
 });
 
@@ -70,9 +101,9 @@ function renderAlarmList() {
     const alarmListElement = document.getElementById('alarmList');
     alarmListElement.innerHTML = ''; // Limpa a lista antes de renderizar
 
-    alarmList.forEach((alarm, index) => {
+    alarmList.forEach((alarme, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `Alarme: ${alarm}`;
+        listItem.textContent = `Alarme: ${String(alarme.hora).padStart(2, '0')}:${String(alarme.minuto).padStart(2, '0')}`;
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Apagar';
@@ -85,18 +116,6 @@ function renderAlarmList() {
         alarmListElement.appendChild(listItem);
     });
 }
-
-// Verificar alarmes a cada segundo
-setInterval(() => {
-    const now = new Date();
-    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    if (alarmList.includes(currentTime)) {
-        alert('Alarme tocando!');
-        const index = alarmList.indexOf(currentTime);
-        alarmList.splice(index, 1); // Remove o alarme acionado
-        renderAlarmList(); // Atualiza a lista
-    }
-}, 1000);
 
 // Configurações
 document.getElementById('settingsButton').addEventListener('click', () => toggleMenu('settingsMenu', true));
@@ -216,3 +235,52 @@ async function fetchWeather() {
 }
 
 fetchWeather();
+
+// ... outras funções e código ...
+
+const eventHandlers = {
+    iniciarTemporizador: () => {
+        // Lógica do temporizador
+        const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+        const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+        let totalSeconds = minutes * 60 + seconds;
+
+        if (window.timerInterval) clearInterval(window.timerInterval);
+
+        window.timerInterval = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(window.timerInterval);
+                alert('O tempo acabou!');
+            } else {
+                totalSeconds--;
+                const displayMinutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+                const displaySeconds = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById('timerDisplay').textContent = `${displayMinutes}:${displaySeconds}`;
+            }
+        }, 1000);
+    },
+    pararTemporizador: () => {
+        clearInterval(window.timerInterval);
+    },
+    ativarAlarme: () => {
+        // Lógica do alarme (exemplo)
+        alert('Alarme ativado!');
+    },
+    modificarConfig: () => {
+        // Lógica de configurações (exemplo)
+        alert('Configurações modificadas!');
+    }
+};
+
+document.getElementById("startTimer").addEventListener("click", eventHandlers.iniciarTemporizador);
+document.getElementById("stopTimer").addEventListener("click", eventHandlers.pararTemporizador);
+
+// Atualiza a cor do relógio em tempo real ao escolher no color picker
+document.getElementById("colorPicker").addEventListener("input", (event) => {
+    document.querySelector(".clock").style.color = event.target.value;
+});
+
+// Atualiza a fonte do relógio em tempo real ao escolher no font picker
+document.getElementById("fontPicker").addEventListener("change", (event) => {
+    document.getElementById('time').style.fontFamily = event.target.value;
+});
